@@ -36,7 +36,6 @@ enum ASTNodeType {
     AST_POINT
 };
 
-// Point structure
 struct Point {
     int x, y;
     
@@ -46,7 +45,6 @@ struct Point {
     std::string toString() const;
 };
 
-// Base AST Node class
 class ASTNode {
 public:
     ASTNodeType type;
@@ -219,7 +217,7 @@ public:
 
 class HexColorNode : public ASTNode {
 public:
-    unsigned int color; // RGB as 0xRRGGBB
+    unsigned int color; 
     
     explicit HexColorNode(unsigned int col);
     
