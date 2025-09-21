@@ -1,0 +1,69 @@
+// Tetris Game - BrickLang Example
+// Simple Tetris implementation for testing lexer and parser
+
+game tetris {
+    // Game settings
+    speed: 5;
+    grid: (10, 20);
+    color: #112244;
+
+    // Game entities
+    entity board {
+        color: #333333;
+        solid: true;
+    }
+
+    entity tetromino {
+        spawn: (5, 0);
+        color: #00FFFF;
+        solid: true;
+    }
+
+    entity ghost_piece {
+        color: #888888;
+        solid: false;
+    }
+
+    entity line_clear {
+        color: #FFFFFF;
+        solid: false;
+    }
+
+    // Control mappings
+    controls {
+        left: move_left;
+        right: move_right;
+        down: soft_drop;
+        up: rotate_cw;
+        space: hard_drop;
+        z: rotate_ccw;
+        c: hold_piece;
+    }
+
+    // Game rules
+    rule gravity {
+        tick: apply_gravity();
+        collide: tetromino, board: lock_piece();
+        collide: tetromino, tetromino: lock_piece();
+    }
+
+    rule line_clearing {
+        tick: check_complete_lines();
+        rule single_line {
+            score: +100;
+        }
+        rule tetris_clear {
+            score: +800;
+        }
+    }
+
+    rule game_over {
+        collide: tetromino, board: check_game_over();
+        tick: spawn_next_piece();
+    }
+
+    rule level_progression {
+        score: +50;
+        tick: increase_speed();
+    }
+}

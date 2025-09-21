@@ -1,0 +1,18 @@
+// Lexer test for number parsing
+game number_test {
+    speed: 0;
+    speed: 1;
+    speed: 100;
+    speed: 9999;
+    
+    grid: (0, 0);
+    grid: (1, 1);
+    grid: (10, 20);
+    grid: (999, 888);
+    
+    entity test {
+        spawn: (0, 0);
+        spawn: (1, 2);
+        spawn: (100, 200);
+    }
+}

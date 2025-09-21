@@ -1,0 +1,25 @@
+// Invalid syntax test - should produce clear error messages
+game invalid_syntax {
+    speed: ;  // Missing value
+    grid: (10,);  // Missing second parameter
+    color: #GGGGGG;  // Invalid hex color
+    
+    entity bad_entity {
+        spawn: (5);  // Missing second coordinate
+        solid: maybe;  // Invalid boolean
+    }
+    
+    controls {
+        up move_up;  // Missing colon
+        down: ;  // Missing action
+    }
+    
+    rule bad_rule {
+        tick: ;  // Missing action
+        collide: player: action();  // Missing second entity
+        score: +;  // Missing value
+        unknown_statement;  // Unknown statement type
+    }
+}
+
+// Missing closing brace should cause error

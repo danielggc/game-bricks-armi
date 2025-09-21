@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/brickc.dir/src/main.cpp.o CMakeFiles/brickc.dir/src/lexer.cpp.o CMakeFiles/brickc.dir/src/parser.cpp.o CMakeFiles/brickc.dir/src/ast.cpp.o CMakeFiles/brickc.dir/src/symbols.cpp.o CMakeFiles/brickc.dir/src/error.cpp.o CMakeFiles/brickc.dir/src/util.cpp.o -o bin/brickc

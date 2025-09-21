@@ -1,0 +1,19 @@
+// Basic lexer test - keywords and identifiers
+game test_lexer {
+    speed: 10;
+    grid: (5, 5);
+    color: #FFFFFF;
+    
+    entity player {
+        spawn: (1, 1);
+        solid: true;
+    }
+    
+    controls {
+        up: move_up;
+    }
+    
+    rule simple {
+        tick: do_nothing();
+    }
+}

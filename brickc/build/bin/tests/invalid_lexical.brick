@@ -1,0 +1,21 @@
+// Invalid lexical elements - should produce lexer errors
+game lexical_errors {
+    speed: 123abc;  // Invalid number format
+    color: #GG00FF;  // Invalid hex digits
+    grid: (@#$, 10);  // Invalid characters
+    
+    entity "quoted_name" {  // Invalid identifier
+        spawn: (5, 5);
+    }
+    
+    controls {
+        @invalid: action;  // Invalid input name
+    }
+    
+    rule test {
+        tick: action_with_123_numbers();  // Valid
+        tick: @invalid_action();  // Invalid action name
+    }
+}
+
+// Unterminated comment should cause error /*

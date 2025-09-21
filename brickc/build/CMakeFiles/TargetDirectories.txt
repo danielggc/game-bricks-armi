@@ -1,0 +1,5 @@
+/Users/dacastaneda/dgc7/game-bricks-armi/brickc/build/CMakeFiles/brickc.dir
+/Users/dacastaneda/dgc7/game-bricks-armi/brickc/build/CMakeFiles/copy_examples.dir
+/Users/dacastaneda/dgc7/game-bricks-armi/brickc/build/CMakeFiles/package.dir
+/Users/dacastaneda/dgc7/game-bricks-armi/brickc/build/CMakeFiles/edit_cache.dir
+/Users/dacastaneda/dgc7/game-bricks-armi/brickc/build/CMakeFiles/rebuild_cache.dir
