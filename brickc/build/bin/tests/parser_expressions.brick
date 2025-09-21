@@ -1,0 +1,16 @@
+// Parser test for expressions and operators
+game expression_test {
+    speed: 5 + 3;
+    grid: (10 * 2, 15 / 3);
+    
+    entity test {
+        spawn: (1 + 2, 3 * 4);
+    }
+    
+    rule math {
+        tick: calculate(1 + 2 * 3);
+        tick: calculate(10 - 5 + 2);
+        tick: calculate((5 + 3) * 2);
+        collide: a, b: action(x + y);
+    }
+}

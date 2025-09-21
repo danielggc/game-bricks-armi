@@ -1,0 +1,24 @@
+// Lexer test for color parsing
+game color_test {
+    color: #FF0000;
+    
+    entity red_block {
+        color: #FF0000;
+    }
+    
+    entity green_block {
+        color: #00FF00;
+    }
+    
+    entity blue_block {
+        color: #0000FF;
+    }
+    
+    entity black_block {
+        color: #000000;
+    }
+    
+    entity white_block {
+        color: #FFFFFF;
+    }
+}

@@ -1,0 +1,33 @@
+// Parser test for nested structures
+game nested_test {
+    speed: 10;
+    
+    entity player {
+        spawn: (5, 5);
+        color: #00FF00;
+        solid: true;
+    }
+    
+    controls {
+        up: move_up;
+        down: move_down;
+        left: move_left;
+        right: move_right;
+    }
+    
+    rule movement {
+        tick: update_position();
+        collide: player, wall: bounce();
+        
+        rule sub_rule {
+            tick: sub_action();
+            score: +5;
+        }
+    }
+    
+    rule scoring {
+        score: +1;
+        score: -2;
+        lose;
+    }
+}
