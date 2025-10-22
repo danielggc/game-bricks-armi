@@ -46,12 +46,16 @@ private:
     int gridWidth_;
     int gridHeight_;
     unsigned int gameColor_;
+    int lives_;
+    int score_;
     std::map<std::string, Entity> entities_;
     std::map<std::string, Control> controls_;
     std::map<std::string, Rule> rules_;
     bool hasSpeed_;
     bool hasGrid_;
     bool hasColor_;
+    bool hasLives_;
+    bool hasScore_;
     ErrorHandler* errorHandler_;
 public:
     explicit SymbolTable(ErrorHandler* errHandler = NULL);
@@ -60,14 +64,20 @@ public:
     void setSpeed(int speed);
     void setGrid(int width, int height);
     void setGameColor(unsigned int color);
+    void setLives(int lives);
+    void setScore(int score);
     const std::string& getGameName() const;
     int getSpeed() const;
     int getGridWidth() const;
     int getGridHeight() const;
     unsigned int getGameColor() const;
+    int getLives() const;
+    int getScore() const;
     bool hasSpeedSetting() const;
     bool hasGridSetting() const;
     bool hasColorSetting() const;
+    bool hasLivesSetting() const;
+    bool hasScoreSetting() const;
     bool addEntity(const std::string& name);
     Entity* findEntity(const std::string& name);
     const Entity* findEntity(const std::string& name) const;

@@ -1,5 +1,5 @@
 # COMANDOS DE TEST EJECUTADOS - BRICKC
-
+para mayo inforamcion simpre incluir el flag --verbose 
 ## COMPILACIÓN
 ```bash
 cd brickc/build

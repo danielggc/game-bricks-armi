@@ -1,20 +1,21 @@
-// Snake Game - BrickLang Example
-// Simple Snake implementation for testing lexer and parser
-
-game snake {
+game snake_plus {
     // Game settings
     speed: 8;
-    grid: (20, 20);
+    grid: (30, 30);
     color: #001122;
 
-    // Game entities
-    entity snake_head {
-        spawn: (10, 10);
+    // Player stats
+    lives: 3;
+    score: 0;
+
+    // Entities
+    entity head {
+        spawn: (15, 15);
         color: #00FF00;
         solid: true;
     }
 
-    entity snake_body {
+    entity body {
         color: #008800;
         solid: true;
     }
@@ -25,41 +26,73 @@ game snake {
         solid: false;
     }
 
+    entity superfruit {
+        spawn: (5, 25);
+        color: #FFD700;
+        solid: false;
+ }
+
     entity wall {
-        color: #444444;
+        color: #666666;
         solid: true;
     }
 
-    // Control mappings
-    controls {
-        up: turn_up;
-        down: turn_down;
-        left: turn_left;
-        right: turn_right;
-        space: pause_game;
+    entity obstacle {
+        spawn: (12, 18);
+        color: #3333FF;
+        solid: true;
     }
 
-    // Game rules
+    // Control scheme
+    controls {
+        w: turn_up;
+        s: turn_down;
+        a: turn_left;
+        d: turn_right;
+        p: pause_game;
+        shift_left: sprint;
+    }
+
+    // Rules
     rule movement {
         tick: move_forward();
-        collide: snake_head, wall: lose;
-        collide: snake_head, snake_body: lose;
+        collide: head, wall: lose_life();
+        collide: head, body: lose_life();
+        collide: head, obstacle: lose_life();
     }
 
     rule eating {
-        collide: snake_head, fruit: grow_snake();
-        collide: snake_head, fruit: spawn_new_fruit();
-        collide: snake_head, fruit: score: +10;
+        collide: head, fruit: grow_snake();
+        collide: head, fruit: spawn_new_fruit();
+        collide: head, fruit: score: +10;
+        collide: head, fruit: increase_speed();
+    }
+
+    rule super_eating {
+        collide: head, superfruit: grow_snake(3);
+        collide: head, superfruit: score: +50;
+        collide: head, superfruit: spawn_new_superfruit();
+    }
+
+    rule sprint_mode {
+        on press shift_left: speed: 14;
+        on release shift_left: speed: 8;
+    }
+
+    rule lives {
+        if lives == 0: game_over;
     }
 
     rule scoring {
-        tick: increment_time();
-        rule bonus {
-            score: +1;
+        tick: time_bonus();
+        rule difficulty {
+            every: 100 ticks;
+            spawn: obstacle;
         }
     }
-
     rule boundaries {
         collide: snake_head, wall: lose;
     }
 }
+
+

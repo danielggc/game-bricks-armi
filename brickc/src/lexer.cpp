@@ -229,6 +229,7 @@ std::string Lexer::tokenTypeName(TokenType type) {
         case T_COLLIDE: return "COLLIDE";
         case T_SCORE: return "SCORE";
         case T_LOSE: return "LOSE";
+        case T_LIVES: return "LIVES";
         case T_LBRACE: return "LBRACE";
         case T_RBRACE: return "RBRACE";
         case T_LPAREN: return "LPAREN";

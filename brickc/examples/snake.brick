@@ -90,8 +90,9 @@ game snake_plus {
             spawn: obstacle;
         }
     }
-}
     rule boundaries {
         collide: snake_head, wall: lose;
     }
 }
+
+

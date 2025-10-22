@@ -46,9 +46,11 @@ std::string Rule::toString() const {
     oss << name << " {" << statements.size() << " statements}";
     return oss.str();
 }
-SymbolTable::SymbolTable(ErrorHandler* errHandler) 
+SymbolTable::SymbolTable(ErrorHandler* errHandler)
     : speed_(0), gridWidth_(0), gridHeight_(0), gameColor_(0),
+      lives_(0), score_(0),
       hasSpeed_(false), hasGrid_(false), hasColor_(false),
+      hasLives_(false), hasScore_(false),
       errorHandler_(errHandler) {
 }
 SymbolTable::~SymbolTable() {
@@ -70,6 +72,14 @@ void SymbolTable::setGameColor(unsigned int color) {
     gameColor_ = color;
     hasColor_ = true;
 }
+void SymbolTable::setLives(int lives) {
+    lives_ = lives;
+    hasLives_ = true;
+}
+void SymbolTable::setScore(int score) {
+    score_ = score;
+    hasScore_ = true;
+}
 const std::string& SymbolTable::getGameName() const {
     return gameName_;
 }
@@ -85,6 +95,12 @@ int SymbolTable::getGridHeight() const {
 unsigned int SymbolTable::getGameColor() const {
     return gameColor_;
 }
+int SymbolTable::getLives() const {
+    return lives_;
+}
+int SymbolTable::getScore() const {
+    return score_;
+}
 bool SymbolTable::hasSpeedSetting() const {
     return hasSpeed_;
 }
@@ -93,6 +109,12 @@ bool SymbolTable::hasGridSetting() const {
 }
 bool SymbolTable::hasColorSetting() const {
     return hasColor_;
+}
+bool SymbolTable::hasLivesSetting() const {
+    return hasLives_;
+}
+bool SymbolTable::hasScoreSetting() const {
+    return hasScore_;
 }
 bool SymbolTable::addEntity(const std::string& name) {
     if (entityExists(name)) {
@@ -235,6 +257,12 @@ void SymbolTable::processSettingNode(SettingNode* settingNode) {
     } else if (settingNode->key == "color" && settingNode->value && settingNode->value->type == AST_HEXCOLOR) {
         HexColorNode* colorNode = static_cast<HexColorNode*>(settingNode->value);
         setGameColor(colorNode->color);
+    } else if (settingNode->key == "lives" && settingNode->value && settingNode->value->type == AST_INTEGER) {
+        IntegerNode* intNode = static_cast<IntegerNode*>(settingNode->value);
+        setLives(intNode->value);
+    } else if (settingNode->key == "score" && settingNode->value && settingNode->value->type == AST_INTEGER) {
+        IntegerNode* intNode = static_cast<IntegerNode*>(settingNode->value);
+        setScore(intNode->value);
     }
 }
 void SymbolTable::processEntityNode(EntityNode* entityNode) {
@@ -295,6 +323,8 @@ void SymbolTable::print(std::ostream& out) const {
     if (hasSpeed_) out << "Velocidad: " << speed_ << "\n";
     if (hasGrid_) out << "Grilla: " << gridWidth_ << "x" << gridHeight_ << "\n";
     if (hasColor_) out << "Color: #" << std::hex << gameColor_ << std::dec << "\n";
+    if (hasLives_) out << "Vidas: " << lives_ << "\n";
+    if (hasScore_) out << "Puntaje: " << score_ << "\n";
     out << "\nEntidades (" << entities_.size() << "):\n";
     for (std::map<std::string, Entity>::const_iterator it = entities_.begin(); 
          it != entities_.end(); ++it) {
