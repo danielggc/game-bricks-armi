@@ -69,7 +69,14 @@ ASTNode* Parser::parseProgram() {
     consume(T_LBRACE, "Se esperaba '{' después del nombre del juego");
     GameNode* gameNode = new GameNode(gameName);
     while (current.type != T_RBRACE && current.type != T_EOF) {
-        if (current.type == T_SPEED || current.type == T_GRID || current.type == T_COLOR) {
+        if (current.type == T_SPEED || current.type == T_GRID || current.type == T_COLOR || 
+            current.type == T_SCORE) {
+            ASTNode* setting = parseSetting();
+            if (setting) {
+                gameNode->addSetting(setting);
+            }
+        } else if (current.type == T_IDENT && current.lexeme == "lives") {
+            // Tratar "lives" como configuración especial
             ASTNode* setting = parseSetting();
             if (setting) {
                 gameNode->addSetting(setting);
@@ -126,12 +133,13 @@ ASTNode* Parser::parseSetting() {
         advance();
         consume(T_RPAREN, "Se esperaba ')' al final de configuración de grilla");
         value = new PointNode(width, height);
-    } else if (settingType == T_SPEED) {
+    } else if (settingType == T_SPEED || settingType == T_SCORE || 
+               (settingType == T_IDENT && key == "lives")) {
         if (current.type == T_INT) {
             value = new IntegerNode(StringUtils::toInt(current.lexeme));
             advance();
         } else {
-            error("Se esperaba número entero para velocidad");
+            error("Se esperaba número entero para " + key);
             return NULL;
         }
     } else if (settingType == T_COLOR) {

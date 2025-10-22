@@ -1,0 +1,76 @@
+# Archivos compilados y binarios
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dylib
+*.so
+*.dll
+
+# Archivos de dependencias
+*.d
+*.dep
+
+# Directorios de construcción
+build/
+Build/
+BUILD/
+cmake-build-*/
+
+# Archivos de CMake generados
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos de configuración de CMake
+CMakeSettings.json
+.vs/
+
+# Archivos de IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.xcworkspace
+*.xcodeproj
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de log y temporales
+*.log
+*.tmp
+*.temp
+
+# Entornos virtuales de Python (si se usan para scripts)
+.venv/
+venv/
+.env
+
+# Archivos de prueba generados
+*.test
+test_*
+
+# Documentación generada
+docs/html/
+docs/latex/
+
+# Archivos de respaldo
+*.bak
+*.backup
+*~
+
+# Archivos específicos del proyecto
+brickc/build/
+BRICK/
+
+# Archivos de configuración local
+local.properties
+config.local.*

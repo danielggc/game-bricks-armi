@@ -24,6 +24,7 @@ enum TokenType {
     T_COLLIDE,
     T_SCORE,
     T_LOSE,
+    T_LIVES,
     T_LBRACE = '{',
     T_RBRACE = '}',
     T_LPAREN = '(',
