@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "/Users/dacastaneda/dgc7/game-bricks-armi/brickc/CMakeLists.txt"
-  "CMakeFiles/4.1.1/CMakeCCompiler.cmake"
-  "CMakeFiles/4.1.1/CMakeCXXCompiler.cmake"
-  "CMakeFiles/4.1.1/CMakeSystem.cmake"
+  "CMakeFiles/4.1.2/CMakeCCompiler.cmake"
+  "CMakeFiles/4.1.2/CMakeCXXCompiler.cmake"
+  "CMakeFiles/4.1.2/CMakeSystem.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeCInformation.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeCXXInformation.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"
