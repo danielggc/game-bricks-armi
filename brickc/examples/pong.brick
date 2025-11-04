@@ -1,0 +1,66 @@
+game pong {
+    // Game settings
+    speed: 12;
+    grid: (40, 25);
+    color: #000033;
+
+    // Player stats
+    lives: 1;
+    score: 0;
+
+    // Entities
+    entity paddle_left {
+        spawn: (2, 12);
+        color: #FFFFFF;
+        solid: true;
+    }
+
+    entity paddle_right {
+        spawn: (37, 12);
+        color: #FFFFFF;
+        solid: true;
+    }
+
+    entity ball {
+        spawn: (20, 12);
+        color: #FFFF00;
+        solid: false;
+    }
+
+    entity wall_top {
+        color: #666666;
+        solid: true;
+    }
+
+    entity wall_bottom {
+        color: #666666;
+        solid: true;
+    }
+
+    // Control scheme
+    controls {
+        w: paddle_left_up;
+        s: paddle_left_down;
+        up: paddle_right_up;
+        down: paddle_right_down;
+        space: pause_game;
+    }
+
+    // Rules
+    rule ball_movement {
+        tick: move_ball();
+        collide: ball, paddle_left: bounce_left();
+        collide: ball, paddle_right: bounce_right();
+        collide: ball, wall_top: bounce_vertical();
+        collide: ball, wall_bottom: bounce_vertical();
+    }
+
+    rule scoring {
+        collide: ball, wall_left: score_right();
+        collide: ball, wall_right: score_left();
+    }
+
+    rule paddle_movement {
+        tick: update_paddles();
+    }
+}

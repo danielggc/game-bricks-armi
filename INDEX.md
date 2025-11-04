@@ -1,8 +1,8 @@
-# 📚 Brick Game Engine - Índice Completo
+# Brick Game Engine - Índice Completo
 
-## 📖 Guías por Nivel de Experiencia
+## Guías por Nivel de Experiencia
 
-### 👶 Principiante - Quiero Jugar
+### Principiante - Quiero Jugar
 1. **[QUICK_START.md](QUICK_START.md)** - 5 minutos para empezar
    - Instalación automática
    - Cómo ejecutar
@@ -19,7 +19,7 @@
    - Estructura de archivos
    - Decisiones técnicas
 
-### 🏗️ Avanzado - Quiero Extender/Modificar
+### Avanzado - Quiero Extender/Modificar
 1. **[ARCHITECTURE.md](ARCHITECTURE.md)** - Requisito
    - Entiende el flujo completo
    - Componentes y responsabilidades
@@ -34,7 +34,7 @@
 
 ---
 
-## 🗂️ Estructura de Carpetas
+## Estructura de Carpetas
 
 ```
 /Users/dacastaneda/dgc7/game-bricks-armi/
@@ -59,13 +59,13 @@
 ├── 📄 INDEX.md                   # Este archivo
 ├── 📄 produc_spec.md             # Especificación del lenguaje BrickLang
 │
-├── 🔧 setup.sh                   # Script de instalación automática
-└── ▶️ play_snake.sh              # Script para jugar
+├── setup.sh                   # Script de instalación automática
+└── play_snake.sh              # Script para jugar
 ```
 
 ---
 
-## 📋 Checklist de Lectura
+## Checklist de Lectura
 
 ### Lectura Mínima (10 minutos)
 - [ ] [QUICK_START.md](QUICK_START.md) - Jugar el juego
@@ -84,7 +84,7 @@
 
 ---
 
-## 🎯 Puntos de Entrada
+## Puntos de Entrada
 
 ### Para Jugar
 ```bash
@@ -107,7 +107,7 @@
 
 ---
 
-## 🔍 Búsqueda Rápida por Tema
+## Búsqueda Rápida por Tema
 
 ### Motor Gráfico
 - **Qué es:** `runtime/include/game_engine.hpp`
@@ -170,7 +170,7 @@
 
 ---
 
-## 🚀 Próximos Pasos
+## Próximos Pasos
 
 ### Después de Jugar
 1. Lee [GAME_ENGINE_README.md](GAME_ENGINE_README.md)
@@ -209,13 +209,13 @@
 
 ---
 
-## ✅ Validación
+## Validación
 
-- ✅ Compila sin errores
-- ✅ Ejecuta sin crashes
-- ✅ Juego funcional
-- ✅ Documentación completa
-- ✅ Cross-platform
+- Compila sin errores
+- Ejecuta sin crashes
+- Juego funcional
+- Documentación completa
+- Cross-platform
 
 ---
 

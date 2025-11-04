@@ -1,6 +1,6 @@
 game snake_plus {
     // Game settings
-    speed: 8;
+    speed: 10;
     grid: (30, 30);
     color: #001122;
 

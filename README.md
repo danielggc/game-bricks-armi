@@ -102,17 +102,20 @@ make
 └── play_snake.sh              # Script para jugar
 ```
 
-## Flujo Compilación → Ejecución
+## Flujo Compilación → Ejecución - INTEGRADO
 
 ```
 snake.brick (código BrickLang)
     ↓
-[BrickC Compiler] → Tabla de Símbolos
+[BrickC Compiler] → Lexer → Parser → AST → SymbolTable
+    ↓                                         ↓
+[Runtime Engine] ← BrickLoader ←──────────────┘
     ↓
-[Runtime Engine] → Renderizado SDL2
-    ↓
-Juego ejecutándose 
+[SDL2 Graphics] → Juego ejecutándose con configuración dinámica
 ```
+
+### NUEVA FUNCIONALIDAD: Carga Directa
+El runtime ahora carga **directamente** las especificaciones parseadas del compilador en memoria, sin necesidad de archivos intermedios JSON.
 
 ## Uso del Compilador
 
@@ -125,6 +128,46 @@ Juego ejecutándose
 
 # Exportar a JSON
 ./brickc/build/bin/brickc --json examples/snake.brick
+
+# EJECUTAR JUEGO DINÁMICO (carga directa de .brick)
+./runtime/build/bin/brick_snake_dynamic brickc/examples/snake.brick
+./runtime/build/bin/brick_snake_dynamic brickc/examples/tetris.brick
+```
+
+## Ejecución del Sistema
+
+### Menú Gráfico Unificado
+```bash
+cd runtime/build
+./bin/brick_menu    # Menú SDL gráfico con escaneo automático
+```
+
+### Scripts de Demostración
+```bash
+./play_dynamic.sh     # Demuestra la integración básica
+./demo_complete.sh    # DEMOSTRACIÓN COMPLETA del sistema
+```
+
+## Menú Dinámico con Escaneo Automático
+
+El sistema ahora incluye un **menú inteligente** que:
+
+- **Escanea automáticamente** todos los archivos `.brick` en el proyecto
+- **Lista todos los juegos** disponibles con sus configuraciones
+- **Permite selección** interactiva desde consola
+- **Carga dinámicamente** las configuraciones de cada juego
+
+```bash
+# Menú gráfico SDL (RECOMENDADO)
+./runtime/build/bin/brick_menu
+
+# Características del menú:
+# • Interfaz gráfica espacial animada
+# • Campo de estrellas en movimiento  
+# • Texto pixel art renderizado
+# • Navegación con flechas ↑↓
+# • Selección con ENTER
+# • Escaneo automático de .brick files
 ```
 
 ## Ejemplo BrickLang
@@ -200,8 +243,8 @@ Implementación del juego completo:
 
 Para más detalles, consulta:
 - 📖 [GAME_ENGINE_README.md](GAME_ENGINE_README.md) - Guía completa del motor gráfico
-- 🏗️ [ARCHITECTURE.md](ARCHITECTURE.md) - Diseño técnico del sistema
-- 📋 [produc_spec.md](produc_spec.md) - Especificación del lenguaje BrickLang
+- [ARCHITECTURE.md](ARCHITECTURE.md) - Diseño técnico del sistema
+- [produc_spec.md](produc_spec.md) - Especificación del lenguaje BrickLang
 
 
 ## Troubleshooting
@@ -258,4 +301,4 @@ Mira el proyecto en acción:
 
 ---
 
-**¡Diviértete creando y jugando tus propios juegos con Brick Games!** 🎮✨   
+**¡Diviértete creando y jugando tus propios juegos con Brick Games!**   

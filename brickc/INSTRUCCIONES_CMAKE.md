@@ -411,6 +411,6 @@ echo "Paquete: $(du -sh BRICK/)"
 
 ---
 
-**¡Listo para compilar!** 🚀
+**¡Listo para compilar!**
 
 El proyecto está configurado para compilar desde el primer intento. Si encuentras algún problema, revisa la sección de solución de problemas o consulta los logs detallados con `make VERBOSE=1`.

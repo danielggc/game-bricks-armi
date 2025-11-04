@@ -1,4 +1,5 @@
 #include "tetris_game.hpp"
+#include "../../brickc/src/symbols.hpp"
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
@@ -9,13 +10,62 @@
 // ============================================================================
 
 TetrisGame::TetrisGame(int gridWidth, int gridHeight, int cellSize)
-    : engine(gridWidth, gridHeight, cellSize),
+    : engine(gridWidth, gridHeight, cellSize), useExternalWindow(false), useBrickFile(false),
       boardWidth(10), boardHeight(20),
       score(0), level(1), linesCleared(0), gameOver(false),
-      dropTimer(0.0f), dropDelay(0.5f), gravitySpeed(0.5f) {
+      dropTimer(0.0f), dropDelay(0.5f), gravitySpeed(0.5f),
+      inputTimer(0.0f), inputDelay(0.15f) {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
     
-    // Allocate board
+    board = new int*[boardHeight];
+    for (int i = 0; i < boardHeight; i++) {
+        board[i] = new int[boardWidth];
+    }
+}
+
+TetrisGame::TetrisGame(SDL_Window* window, SDL_Renderer* renderer, int gridWidth, int gridHeight, int cellSize)
+    : engine(window, renderer, gridWidth, gridHeight, cellSize), useExternalWindow(true), useBrickFile(false),
+      boardWidth(gridWidth), boardHeight(gridHeight),
+      score(0), level(1), linesCleared(0), gameOver(false),
+      dropTimer(0.0f), dropDelay(0.5f), gravitySpeed(0.5f),
+      inputTimer(0.0f), inputDelay(0.15f) {
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    
+    board = new int*[boardHeight];
+    for (int i = 0; i < boardHeight; i++) {
+        board[i] = new int[boardWidth];
+    }
+}
+
+TetrisGame::TetrisGame(SDL_Window* window, SDL_Renderer* renderer, const std::string& brickFile, int cellSize)
+    : engine(window, renderer, 10, 20, cellSize), useExternalWindow(true), useBrickFile(true),
+      boardWidth(10), boardHeight(20),
+      score(0), level(1), linesCleared(0), gameOver(false),
+      dropTimer(0.0f), dropDelay(0.5f), gravitySpeed(0.5f),
+      inputTimer(0.0f), inputDelay(0.15f) {
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    
+    if (brickLoader.loadBrickFile(brickFile)) {
+        boardWidth = brickLoader.getGridWidth();
+        boardHeight = brickLoader.getGridHeight();
+        engine = GameEngine(window, renderer, boardWidth, boardHeight, cellSize);
+        
+        int brickSpeed = brickLoader.getSpeed();
+        gravitySpeed = 1.0f / brickSpeed;
+        dropDelay = gravitySpeed;
+        score = brickLoader.getScore();
+        
+        std::cout << "Tetris configuration from .brick:" << std::endl;
+        std::cout << "  Speed: " << brickSpeed << " (gravity: " << gravitySpeed << ")" << std::endl;
+        std::cout << "  dropDelay: " << dropDelay << " seconds" << std::endl;
+        std::cout << "  Grid: " << boardWidth << "x" << boardHeight << std::endl;
+        std::cout << "  Score: " << score << std::endl;
+        std::cout << "  Color: 0x" << std::hex << brickLoader.getGameColor() << std::dec << std::endl;
+        
+        Color bgColor = Color::fromHex(brickLoader.getGameColor());
+        engine.setBackgroundColor(bgColor);
+    }
+    
     board = new int*[boardHeight];
     for (int i = 0; i < boardHeight; i++) {
         board[i] = new int[boardWidth];
@@ -46,8 +96,10 @@ bool TetrisGame::initialize() {
     input.mapKeyToAction(SDLK_w, "rotate");
     input.mapKeyToAction(SDLK_SPACE, "hardDrop");
     input.mapKeyToAction(SDLK_p, "pause");
+    input.mapKeyToAction(SDLK_ESCAPE, "quit");
     
     initializeGame();
+    loadEntitiesFromBrick();
     
     return true;
 }
@@ -59,10 +111,18 @@ void TetrisGame::initializeGame() {
     linesCleared = 0;
     gameOver = false;
     dropTimer = 0.0f;
-    dropDelay = 0.5f;
     
-    spawnNewPiece();
-    spawnNewPiece();  // Generate next piece
+    if (useBrickFile && brickLoader.hasEntity("piece")) {
+        const brick::Entity* pieceEntity = brickLoader.findEntity("piece");
+        currentPiece = Tetromino(BLOCK_I, pieceEntity->spawn.x, pieceEntity->spawn.y);
+        std::cout << "Tetris piece initialized at position from .brick: (" << pieceEntity->spawn.x << ", " << pieceEntity->spawn.y << ")" << std::endl;
+    } else {
+        currentPiece = getRandomTetromino();
+        currentPiece.x = boardWidth / 2;
+        currentPiece.y = 0;
+    }
+    
+    nextPiece = getRandomTetromino();
 }
 
 void TetrisGame::clearBoard() {
@@ -153,10 +213,17 @@ void TetrisGame::dropPiece() {
     if (canPlace(currentPiece, 0, 1)) {
         currentPiece.y++;
     } else {
-        // Place the piece
         placePiece(currentPiece);
         checkAndClearLines();
-        spawnNewPiece();
+        
+        currentPiece = nextPiece;
+        currentPiece.x = boardWidth / 2;
+        currentPiece.y = 0;
+        nextPiece = getRandomTetromino();
+        
+        if (!canPlace(currentPiece, 0, 0)) {
+            gameOver = true;
+        }
     }
 }
 
@@ -231,22 +298,21 @@ void TetrisGame::handleInput() {
     
     input.update();
     
-    if (input.isActionActive("left")) {
-        movePiece(-1);
-        SDL_Delay(100);  // Delay to prevent too fast movement
-    } else if (input.isActionActive("right")) {
-        movePiece(1);
-        SDL_Delay(100);
-    }
-    
-    if (input.isActionActive("down")) {
-        dropPiece();
-        dropTimer = 0.0f;
-    }
-    
-    if (input.isActionActive("rotate")) {
-        rotatePiece(1);
-        SDL_Delay(100);
+    if (inputTimer >= inputDelay) {
+        if (input.isActionActive("left")) {
+            movePiece(-1);
+            inputTimer = 0.0f;
+        } else if (input.isActionActive("right")) {
+            movePiece(1);
+            inputTimer = 0.0f;
+        } else if (input.isActionActive("down")) {
+            dropPiece();
+            dropTimer = 0.0f;
+            inputTimer = 0.0f;
+        } else if (input.isActionActive("rotate")) {
+            rotatePiece(1);
+            inputTimer = 0.0f;
+        }
     }
     
     if (input.isActionActive("hardDrop")) {
@@ -254,6 +320,14 @@ void TetrisGame::handleInput() {
             currentPiece.y++;
         }
         dropPiece();
+    }
+    
+    if (input.isActionActive("quit")) {
+        if (useExternalWindow) {
+            engine.quit();
+        } else {
+            gameOver = true;
+        }
     }
 }
 
@@ -434,7 +508,29 @@ void TetrisGame::handleGameOver() {
     std::cout << "================\n" << std::endl;
 }
 
+void TetrisGame::loadEntitiesFromBrick() {
+    if (!useBrickFile) return;
+    
+    const auto& entities = brickLoader.getEntities();
+    
+    std::cout << "Loading entities from .brick file:" << std::endl;
+    for (const auto& pair : entities) {
+        const std::string& name = pair.first;
+        const brick::Entity& brickEntity = pair.second;
+        
+        std::cout << "  Entity: " << name << std::endl;
+        std::cout << "    Spawn: (" << brickEntity.spawn.x << ", " << brickEntity.spawn.y << ")" << std::endl;
+        std::cout << "    Color: 0x" << std::hex << brickEntity.color << std::dec << std::endl;
+        std::cout << "    Solid: " << (brickEntity.solid ? "true" : "false") << std::endl;
+        
+        Color entityColor = Color::fromHex(brickEntity.color);
+        Entity gameEntity(name, Point(brickEntity.spawn.x, brickEntity.spawn.y), entityColor);
+        engine.addEntity(gameEntity);
+    }
+}
+
 void TetrisGame::update(float deltaTime) {
+    inputTimer += deltaTime;
     handleInput();
     updateDropTimer(deltaTime);
 }
@@ -458,6 +554,8 @@ void TetrisGame::run() {
         drawGame();
     }
     
-    handleGameOver();
+    if (!useExternalWindow) {
+        handleGameOver();
+    }
 }
 

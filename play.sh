@@ -1,36 +1,44 @@
 #!/bin/bash
 
-# Play Brick Games - Main Launcher
-# Menú principal para seleccionar entre Snake y Tetris
+# Script principal para ejecutar Brick Games Engine
+# Sistema unificado con menú gráfico SDL
 
-echo "🎮 Brick Games - Main Menu"
-echo "============================="
+echo "╔════════════════════════════════════════════════════════════╗"
+echo "║                                                            ║"
+echo "║             BRICK GAMES ENGINE - SISTEMA LIMPIO            ║"
+echo "║                                                            ║"
+echo "║              Menú Gráfico SDL Unificado                   ║"
+echo "║                                                            ║"
+echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
-# Check if the executable exists
-if [ ! -f "runtime/build/bin/brick_games" ]; then
-    echo "Error: Main launcher executable not found!"
-    echo ""
-    echo "Please compile the project first:"
-    echo "  1. ./setup.sh"
-    echo ""
-    echo "Or manually:"
-    echo "  cd runtime"
-    echo "  mkdir -p build"
-    echo "  cd build"
-    echo "  cmake .."
-    echo "  make"
-    exit 1
+# Verificar que el ejecutable existe
+if [ ! -f "runtime/build/bin/brick_menu" ]; then
+    echo "Error: brick_menu no encontrado"
+    echo "   Compilando el sistema..."
+    cd runtime/build
+    cmake .. && make
+    cd ../..
 fi
 
-echo "Starting Brick Games Menu..."
-echo "Select a game using arrow keys"
-echo "Press SPACE or ENTER to select"
+echo "Iniciando Brick Games Engine..."
+echo ""
+echo "Características del menú:"
+echo "  - Interfaz gráfica espacial animada"
+echo "  - Campo de estrellas en movimiento"
+echo "  - Texto pixel art sin imágenes externas"
+echo "  - Escaneo automático de archivos .brick"
+echo "  - Carga dinámica de configuraciones"
+echo ""
+echo "Controles:"
+echo "  - Flechas arriba/abajo: Navegar entre juegos"
+echo "  - ENTER: Seleccionar juego"
+echo "  - ESC: Salir"
 echo ""
 
-cd "$(dirname "$0")"
-./runtime/build/bin/brick_games
+# Ejecutar el menú
+cd runtime/build
+./bin/brick_menu
 
 echo ""
-echo "Thanks for playing! 🎮"
-
+echo "Gracias por jugar Brick Games!"

@@ -3,6 +3,7 @@
 
 #include "game_engine.hpp"
 #include "input_manager.hpp"
+#include "brick_loader.hpp"
 
 // ============================================================================
 // Tetris Game - Game logic and state
@@ -40,6 +41,8 @@ struct Tetromino {
 class TetrisGame {
 public:
     TetrisGame(int gridWidth = 10, int gridHeight = 20, int cellSize = 20);
+    TetrisGame(SDL_Window* window, SDL_Renderer* renderer, int gridWidth = 10, int gridHeight = 20, int cellSize = 20);
+    TetrisGame(SDL_Window* window, SDL_Renderer* renderer, const std::string& brickFile, int cellSize = 30);
     ~TetrisGame();
     
     // Game loop
@@ -54,11 +57,21 @@ public:
     int getLines() const { return linesCleared; }
     bool isGameOver() const { return gameOver; }
     
+    void setSpeed(int speed) { gravitySpeed = 1.0f / speed; dropDelay = gravitySpeed; }
+    void setScore(int newScore) { score = newScore; }
+    void setLevel(int newLevel) { level = newLevel; }
+    void setBackgroundColor(unsigned int color) { 
+        Color bgColor = Color::fromHex(color);
+        engine.setBackgroundColor(bgColor);
+    }
+    
 private:
     GameEngine engine;
     InputManager input;
+    BrickLoader brickLoader;
+    bool useExternalWindow;
+    bool useBrickFile;
     
-    // Game board (0 = empty, 1-7 = block types)
     int** board;
     int boardWidth, boardHeight;
     
@@ -75,14 +88,17 @@ private:
     float dropDelay;
     float gravitySpeed;
     
+    float inputTimer;
+    float inputDelay;
+    
     // Game logic
     void initializeGame();
     void spawnNewPiece();
     void generateRandomPiece();
+    void dropPiece();
     Tetromino getRandomTetromino() const;
     
     void updateDropTimer(float deltaTime);
-    void dropPiece();
     void rotatePiece(int direction);  // 1 for CW, -1 for CCW
     void movePiece(int dx);
     
@@ -98,6 +114,7 @@ private:
     void drawCurrentPiece();
     void drawNextPiece();
     void handleGameOver();
+    void loadEntitiesFromBrick();
     
     // Tetromino shape helpers
     void getPieceShape(TetrisBlockType type, RotationState rot, 
