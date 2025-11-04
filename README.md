@@ -299,6 +299,9 @@ Mira el proyecto en acción:
 **Sistema Completo en Ejecución**
 ![Sistema Completo](Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.09.13%20p.m..png)
 
+**Juego Snake con Obstáculos Móviles**
+![Snake con Obstáculos](Captura%20de%20pantalla%202025-11-03%20a%20la(s)%209.01.22%20p.m..png)
+
 ---
 
 **¡Diviértete creando y jugando tus propios juegos con Brick Games!**   
