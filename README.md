@@ -290,19 +290,19 @@ Mira el proyecto en acción:
 ###  Capturas del Proyecto
 
 **Ejecución del Juego - Snake**
-![Juego Snake Corriendo](./Captura%20de%20pantalla%202025-10-22%20a%20la(s)%206.13.56%20p.m..png)
+![Juego Snake Corriendo](https://github.com/danielggc/game-bricks-armi/blob/main/Captura%20de%20pantalla%202025-10-22%20a%20la(s)%206.13.56%E2%80%AFp.m..png)
 
 **Interfaz del Juego**
-![Interfaz Juego](./Captura%20de%20pantalla%202025-10-22%20a%20la(s)%206.14.40%20p.m..png)
+![Interfaz Juego](https://github.com/danielggc/game-bricks-armi/blob/main/Captura%20de%20pantalla%202025-10-22%20a%20la(s)%206.14.40%E2%80%AFp.m..png)
 
 **Compilador BrickC - Análisis Léxico y Sintáctico**
-![BrickC Parser](./Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.08.47%20p.m..png)
+![BrickC Parser](https://github.com/danielggc/game-bricks-armi/blob/main/Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.08.47%E2%80%AFp.m..png)
 
 **Sistema Completo en Ejecución**
-![Sistema Completo](./Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.09.13%20p.m..png)
+![Sistema Completo](https://github.com/danielggc/game-bricks-armi/blob/main/Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.09.13%E2%80%AFp.m..png)
 
 **Juego Snake con Obstáculos Móviles**
-![Snake con Obstáculos](./Captura%20de%20pantalla%202025-11-03%20a%20la(s)%209.01.22%20p.m..png)
+![Snake con Obstáculos](https://github.com/danielggc/game-bricks-armi/blob/main/Captura%20de%20pantalla%202025-11-03%20a%20la(s)%209.01.22%E2%80%AFp.m..png)
 
 ---
 
