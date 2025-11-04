@@ -6,10 +6,6 @@
 #include <vector>
 #include <map>
 
-// ============================================================================
-// Game Engine Core Components
-// ============================================================================
-
 struct Point {
     int x, y;
     Point(int x = 0, int y = 0) : x(x), y(y) {}
@@ -47,13 +43,10 @@ struct Entity {
           solid(true), visible(true) {}
 };
 
-// ============================================================================
-// Game Engine
-// ============================================================================
-
 class GameEngine {
 public:
     GameEngine(int gridWidth, int gridHeight, int cellSize = 20);
+    GameEngine(SDL_Window* window, SDL_Renderer* renderer, int gridWidth, int gridHeight, int cellSize = 20);
     ~GameEngine();
     
     bool initialize();
@@ -62,16 +55,13 @@ public:
     bool isRunning() const { return running; }
     void quit() { running = false; }
     
-    // Entity management
     void addEntity(const Entity& entity);
     void removeEntity(const std::string& name);
     Entity* getEntity(const std::string& name);
     
-    // Game settings
     void setGameSpeed(int speed) { gameSpeed = speed; }
     void setBackgroundColor(const Color& color) { backgroundColor = color; }
     
-    // Properties
     int getGridWidth() const { return gridWidth; }
     int getGridHeight() const { return gridHeight; }
     int getCellSize() const { return cellSize; }
@@ -84,6 +74,7 @@ private:
     int cellSize;
     int gameSpeed;
     bool running;
+    bool useExternalWindow;
     
     SDL_Window* window;
     SDL_Renderer* renderer;

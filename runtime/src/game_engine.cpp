@@ -8,21 +8,34 @@
 
 GameEngine::GameEngine(int gridWidth, int gridHeight, int cellSize)
     : gridWidth(gridWidth), gridHeight(gridHeight), cellSize(cellSize),
-      gameSpeed(8), running(false), window(nullptr), renderer(nullptr),
-      backgroundColor(0, 17, 34) {
+      gameSpeed(8), running(false), useExternalWindow(false), 
+      window(nullptr), renderer(nullptr), backgroundColor(0, 17, 34) {
+}
+
+GameEngine::GameEngine(SDL_Window* window, SDL_Renderer* renderer, int gridWidth, int gridHeight, int cellSize)
+    : gridWidth(gridWidth), gridHeight(gridHeight), cellSize(cellSize),
+      gameSpeed(8), running(false), useExternalWindow(true),
+      window(window), renderer(renderer), backgroundColor(0, 17, 34) {
 }
 
 GameEngine::~GameEngine() {
-    if (renderer) {
-        SDL_DestroyRenderer(renderer);
+    if (!useExternalWindow) {
+        if (renderer) {
+            SDL_DestroyRenderer(renderer);
+        }
+        if (window) {
+            SDL_DestroyWindow(window);
+        }
+        SDL_Quit();
     }
-    if (window) {
-        SDL_DestroyWindow(window);
-    }
-    SDL_Quit();
 }
 
 bool GameEngine::initialize() {
+    if (useExternalWindow) {
+        running = true;
+        return true;
+    }
+    
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "Error: SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
         return false;
