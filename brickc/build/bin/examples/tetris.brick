@@ -1,7 +1,7 @@
 game tetris {
     // Game settings
-    speed: 5;
-    grid: (10, 20);
+    speed: 10;
+    grid: (20, 20);
     color: #112244;
 
     // Game entities

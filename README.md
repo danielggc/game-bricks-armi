@@ -279,25 +279,30 @@ Parte del proyecto Brick Games - Motor de Juegos de Ladrillos
 
 ###  Video Demostración
 Mira el proyecto en acción:
+
+**Versión Actual con Menú Mejorado:**
+- [Video Sistema Completo con Menú SDL](https://drive.google.com/file/d/1zhenAAcJ2FPH0VccnkOdnJsDuLrzCR_b/view?usp=sharing)
+
+**Versiones Anteriores (sin menú mejorado):**
 - [Video 1 en Google Drive](https://drive.google.com/file/d/1wAgLsYLOasJPuwe_jIHP58uC-Yt025a_/view?usp=share_link)
 - [Video 2 en Google Drive](https://drive.google.com/file/d/1wAgLsYLOasJPuwe_jIHP58uC-Yt025a_/view?usp=sharing)
 
 ###  Capturas del Proyecto
 
 **Ejecución del Juego - Snake**
-![Juego Snake Corriendo](Captura%20de%20pantalla%202025-10-22%20a%20la(s)%206.13.56%20p.m..png)
+![Juego Snake Corriendo](./Captura%20de%20pantalla%202025-10-22%20a%20la(s)%206.13.56%20p.m..png)
 
 **Interfaz del Juego**
-![Interfaz Juego](Captura%20de%20pantalla%202025-10-22%20a%20la(s)%206.14.40%20p.m..png)
+![Interfaz Juego](./Captura%20de%20pantalla%202025-10-22%20a%20la(s)%206.14.40%20p.m..png)
 
-**Compilador BrickC - Análisis Léxico**
-![BrickC Lexer](Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.08.01%20p.m..png)
-
-**Compilador BrickC - Análisis Sintáctico**
-![BrickC Parser](Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.08.47%20p.m..png)
+**Compilador BrickC - Análisis Léxico y Sintáctico**
+![BrickC Parser](./Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.08.47%20p.m..png)
 
 **Sistema Completo en Ejecución**
-![Sistema Completo](Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.09.13%20p.m..png)
+![Sistema Completo](./Captura%20de%20pantalla%202025-11-03%20a%20la(s)%201.09.13%20p.m..png)
+
+**Juego Snake con Obstáculos Móviles**
+![Snake con Obstáculos](./Captura%20de%20pantalla%202025-11-03%20a%20la(s)%209.01.22%20p.m..png)
 
 ---
 
