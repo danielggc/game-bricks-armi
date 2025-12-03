@@ -1,6 +1,7 @@
 #include "brick_loader.hpp"
 #include "snake_game.hpp"
 #include "tetris_game.hpp"
+#include "tank_game.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
@@ -257,6 +258,16 @@ public:
                 std::cout << "Tetris game finished, returning to menu..." << std::endl;
             } else {
                 std::cerr << "Failed to initialize Tetris game!" << std::endl;
+            }
+        } else if (gameName.find("tank") != std::string::npos) {
+            TankGame tankGame(window, renderer, game.filename, 25);
+            std::cout << "Initializing Tank game..." << std::endl;
+            if (tankGame.initialize()) {
+                std::cout << "Tank game initialized, starting..." << std::endl;
+                tankGame.run();
+                std::cout << "Tank game finished, returning to menu..." << std::endl;
+            } else {
+                std::cerr << "Failed to initialize Tank game!" << std::endl;
             }
         } else {
             std::cout << "Unknown game type '" << gameName << "', using Snake as default..." << std::endl;

@@ -1,6 +1,6 @@
 game tetris {
     // Game settings
-    speed: 10;
+    speed: 1;
     grid: (20, 20);
     color: #112244;
 
