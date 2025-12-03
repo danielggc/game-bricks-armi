@@ -312,3 +312,14 @@ Mira el proyecto en acción:
 [Demo](https://drive.google.com/file/d/1WOnjC6VkW_yzId_0vjI3B37N2O399ooP/view?usp=share_link)
 ---
 **¡Diviértete creando y jugando tus propios juegos con Brick Games!**   
+## integrantes :
+
+Luisa Rendón
+<lurendong@unal.edu.co>
+
+dancastanedaca@unal.edu.co
+<Daniel ángel castañeda Cardona>
+
+
+Christopher David Martinez Gongora 
+<chmartinez@unal.edu.co>
