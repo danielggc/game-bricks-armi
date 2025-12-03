@@ -32,6 +32,7 @@ set(SDL_MENU_SOURCES
     ${ENGINE_SOURCES}
     src/snake_game.cpp
     src/tetris_game.cpp
+    src/tank_game.cpp
     src/main.cpp
 )
 

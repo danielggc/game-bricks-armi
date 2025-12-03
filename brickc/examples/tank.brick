@@ -1,0 +1,115 @@
+game tank_battle {
+    // Game settings
+    speed: 1;
+    grid: (25, 20);
+    color: #2F4F2F;
+
+    // Player stats
+    lives: 3;
+    score: 0;
+
+    // Entities
+    entity player_tank {
+        spawn: (2, 18);
+        color: #00FF00;
+        solid: true;
+    }
+
+    entity enemy_tank {
+        spawn: (22, 1);
+        color: #FF0000;
+        solid: true;
+    }
+
+    entity bullet {
+        color: #FFFF00;
+        solid: false;
+    }
+
+    entity enemy_bullet {
+        color: #FF8800;
+        solid: false;
+    }
+
+    entity wall {
+        color: #8B4513;
+        solid: true;
+    }
+
+    entity destructible_wall {
+        spawn: (12, 10);
+        color: #CD853F;
+        solid: true;
+    }
+
+    entity powerup {
+        spawn: (12, 5);
+        color: #00FFFF;
+        solid: false;
+    }
+
+    entity explosion {
+        color: #FF4500;
+        solid: false;
+    }
+
+    // Control scheme
+    controls {
+        w: move_up;
+        s: move_down;
+        a: move_left;
+        d: move_right;
+        space: shoot;
+        p: pause_game;
+        r: rotate_turret;
+    }
+
+    // Rules
+    rule movement {
+        tick: update_positions();
+        collide: player_tank, wall: block_movement();
+        collide: player_tank, destructible_wall: block_movement();
+        collide: enemy_tank, wall: change_direction();
+    }
+
+    rule shooting {
+        on press space: fire_bullet();
+        tick: update_bullets();
+        collide: bullet, wall: destroy_bullet();
+        collide: bullet, destructible_wall: destroy_both();
+        collide: enemy_bullet, wall: destroy_bullet();
+    }
+
+    rule combat {
+        collide: bullet, enemy_tank: destroy_enemy();
+        collide: bullet, enemy_tank: score: +100;
+        collide: bullet, enemy_tank: spawn_explosion();
+        collide: enemy_bullet, player_tank: lose_life();
+        collide: enemy_bullet, player_tank: spawn_explosion();
+        collide: player_tank, enemy_tank: lose_life();
+    }
+
+    rule enemy_ai {
+        tick: enemy_movement();
+        tick: enemy_shooting();
+        every: 60 ticks;
+        spawn: enemy_tank;
+    }
+
+    rule powerups {
+        collide: player_tank, powerup: collect_powerup();
+        collide: player_tank, powerup: score: +50;
+        collide: player_tank, powerup: lives: +1;
+    }
+
+    rule game_state {
+        if lives == 0: game_over;
+        if score >= 1000: victory;
+    }
+
+    rule explosions {
+        tick: update_explosions();
+        every: 10 ticks;
+        remove: explosion;
+    }
+}
