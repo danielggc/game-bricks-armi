@@ -234,6 +234,7 @@ Implementación del juego completo:
 
 ## Requisitos del Sistema
 
+
 - **macOS** 10.12+ (Intel/Apple Silicon) o **Ubuntu 18.04+** o **Windows 10+**
 - **CMake** 3.10+
 - **Compilador C++11** (GCC 4.7+, Clang 3.3+, MSVC 2015+)
@@ -304,6 +305,10 @@ Mira el proyecto en acción:
 **Juego Snake con Obstáculos Móviles**
 ![Snake con Obstáculos](https://github.com/danielggc/game-bricks-armi/blob/main/Captura%20de%20pantalla%202025-11-03%20a%20la(s)%209.01.22%E2%80%AFp.m..png)
 
----
+**Juego tanques asesino**
+[Super tanques](https://drive.google.com/file/d/1mHOijFDp3IJfuo6BlwHeUVWBHyd7tPm0/view?usp=share_link)
 
+**Demo para que no te pierdas ningun juego**
+[Demo](https://drive.google.com/file/d/1WOnjC6VkW_yzId_0vjI3B37N2O399ooP/view?usp=share_link)
+---
 **¡Diviértete creando y jugando tus propios juegos con Brick Games!**   
